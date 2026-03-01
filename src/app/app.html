@@ -1,4 +1,15 @@
-<h1>Hello, {{ title() }} </h1>
-<h2>{{name}} - {{indeks}}</h2>
-<a routerLink="/">Home</a> | <a routerLink="/about">About</a>
-<router-outlet />
+<mat-toolbar color="primary">
+  <span>KVA</span>
+  <span class="spacer"></span>
+  <a routerLink="/" matButton>Home</a>
+  <a routerLink="/about" matButton>About</a>
+  <button matButton [matMenuTriggerFor]="afterMenu">Korisnik</button>
+  <mat-menu #afterMenu="matMenu" xPosition="after">
+    <button mat-menu-item>Item 1</button>
+    <button mat-menu-item>Item 2</button>
+  </mat-menu>
+</mat-toolbar>
+
+<div class="wrapper">
+  <router-outlet />
+</div>
