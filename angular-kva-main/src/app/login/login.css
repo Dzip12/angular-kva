@@ -1,0 +1,10 @@
+mat-card{
+    width: 600px;
+    margin: 0 auto;
+}
+.full-width{
+    display: flex;
+    width: 300px;
+    margin-right: auto;
+    margin-left: auto;
+}
