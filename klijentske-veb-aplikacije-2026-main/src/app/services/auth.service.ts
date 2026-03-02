@@ -1,4 +1,3 @@
-
 import { UserModel } from "../../models/user.model"
 
 const USERS = 'users'
