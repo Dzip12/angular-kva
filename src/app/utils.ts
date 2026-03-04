@@ -6,7 +6,7 @@ import { FlightModel } from '../models/flight.model';
 })
 export class Utils {
   formatDate(iso: string) {
-    return new Date(iso).toLocaleString('rs-SR', {
+    return new Date(iso).toLocaleString('sr-RS', {
       year: 'numeric',
       month: '2-digit',
       day: '2-digit',

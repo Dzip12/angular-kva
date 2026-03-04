@@ -1,4 +1,3 @@
-
 @if(flights().length > 0) {
 <div class="card-wrapper">
     @for (f of flights(); track $index){
@@ -25,11 +24,5 @@
 </div>
 }
 @else {
-<mat-card class="loading-card">
-    <img src="/loading.webp" class="loading-img">
-    <mat-card-content>
-        <h3>Podaci se ucitavaju</h3>
-        <p>Molimo sacekajte...</p>
-    </mat-card-content>
-</mat-card>
+    <app-loading />
 }
