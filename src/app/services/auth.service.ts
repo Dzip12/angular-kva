@@ -1,3 +1,5 @@
+import { FlightModel } from "../../models/flight.model"
+import { OrderModel } from "../../models/order.model"
 import { UserModel } from "../../models/user.model"
 
 const USERS = 'users'
@@ -60,7 +62,7 @@ export class AuthService {
         localStorage.setItem(USERS, JSON.stringify(users))
     }
 
-        static updateActiveUserPassword(newPassword: string) {
+    static updateActiveUserPassword(newPassword: string) {
         const users = this.getUsers()
         for (let u of users) {
             if (u.email === localStorage.getItem(ACTIVE)) {
@@ -72,5 +74,63 @@ export class AuthService {
 
     static logout() {
         localStorage.removeItem(ACTIVE)
+    }
+
+    static createOrder(order: Partial<OrderModel>, flight: FlightModel) {
+        order.state = 'w'
+        order.flightId = flight.id
+        order.flightNumber = flight.flightNumber
+        order.destination = flight.destination
+        order.scheduledAt = flight.scheduledAt
+        order.createdAt = new Date().toISOString()
+
+        const users = this.getUsers()
+        for (let u of users) {
+            if (u.email === localStorage.getItem(ACTIVE)) {
+                u.orders.push(order as OrderModel)
+            }
+        }
+        localStorage.setItem(USERS, JSON.stringify(users))
+    }
+
+    static getOrdersByState(state: 'w' | 'p' | 'c') {
+        const users = this.getUsers()
+        for (let u of users) {
+            if (u.email === localStorage.getItem(ACTIVE)) {
+                return u.orders.filter((o) => o.state === state)
+            }
+        }
+
+        return []
+    }
+
+    static cancelOrder(createdAt: string) {
+        const users = this.getUsers()
+        for (let u of users) {
+            if (u.email === localStorage.getItem(ACTIVE)) {
+                for (let o of u.orders) {
+                    if (o.state == 'w' && o.createdAt == createdAt) {
+                        o.state = 'c'
+                    }
+                }
+            }
+        }
+
+        localStorage.setItem(USERS, JSON.stringify(users))
+    }
+
+    static payOrders() {
+        const users = this.getUsers()
+        for (let u of users) {
+            if (u.email === localStorage.getItem(ACTIVE)) {
+                for (let o of u.orders) {
+                    if (o.state == 'w') {
+                        o.state = 'p'
+                    }
+                }
+            }
+        }
+
+        localStorage.setItem(USERS, JSON.stringify(users))
     }
 }

@@ -1,4 +1,4 @@
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 
 const matCustomClass = {
     popup: 'mat-swal-popup',
@@ -18,11 +18,12 @@ export class Alerts {
         })
     }
 
-    static error(text: string){
+    static error(text: string) {
         Swal.fire({
-            title:'Error',
+            title: 'Error',
             text,
-            icon:'error'
+            icon: 'error',
+            customClass: matCustomClass
         })
     }
 
@@ -34,12 +35,12 @@ export class Alerts {
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes"
+            confirmButtonText: "Yes",
+            customClass: matCustomClass
         }).then((result) => {
             if (result.isConfirmed) {
                 callback()
             }
         })
     }
-
 }
